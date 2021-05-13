@@ -43,6 +43,10 @@ print(n, x, b) # such easy
 
 Purely to make linters angry
 
+## How
+
+Metaclasses defining custom namespaces and special syntax, `inspect` to traverse stack frames and mess with globals, and plenty of glue to patch together some reasonable API to z3.
+
 ## License
 
 GPLv3, see LICENSE
