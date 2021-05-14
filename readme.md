@@ -16,7 +16,7 @@ class MySolver(Solver):
     n: int # integers
     x: float # reals
     b: bool # bools
-    f: {(int, int), float} # functions
+    f: {(int, int): float} # functions
 
     # constraints are assertions in the class body
     assert n > 0
@@ -62,9 +62,9 @@ In the example, you notice that trying to access variables that aren't defined a
 
 In this module, the custom namespace (aptly named `NameSpace`) behaves exactly as `dict` does, except when unbound value are accessed. (Note: the code is full of jank and inconsistency. Don't be surprised if what I say slightly misrepresents its hackiness.) In those cases, it returns a `Variable` object.
 
-The `Variable` class defines a whole ton of operator overloads, including arithmetic (`__add__`, for `+`) and comparison (`__eq__`, for `==`) operators. These overloads all have the same behavior; they simply build an AST from their behavior. In short, `a + b` evaluates to something like `BinOp(Variable("a"), Variable("b"), "__add__")`. Here, `BinOp` refers specifically to a binary operator. `Variable` also defines unary operators (`-`, `+` , `~`), and function call syntax `f(a, b, c, ...)`, which evaluate to `UnaryOp` and `Call` objects, respectively. That is to say, these expressions describe the program that wrote them. These AST objects all derive from `Value`, which is their base class and which defines most of these operators.
+The `Variable` class defines a whole ton of operator overloads, including arithmetic (`__add__`, for `+`) and comparison (`__eq__`, for `==`) operators. These overloads all have the same behavior; they build an AST. In short, `a + b` evaluates to something like `BinOp(Variable("a"), Variable("b"), "__add__")`. Here, `BinOp` refers specifically to a binary operator. `Variable` also defines unary operators (`-`, `+` , `~`), and function call syntax `f(a, b, c, ...)`, which evaluate to `UnaryOp` and `Call` objects, respectively. That is to say, these expressions describe the program that wrote them. These AST objects all derive from `Value`, which is their base class and which defines most of these operators.
 
-The `Value` class additionally defines a `__bool__` method. This method is called whenever an expression is evaluated for its "truthiness", e.g. in the condition of an `if` block or in the argument of `not x`. One specific scenario that calls `Variable.__bool__` is an assertion. Whenever `assert x` is executed, `x` is checked for truthiness, and if it is falsey, an `AssertionError` is raised. This module abuses this fact; whenever `__bool__` is called, the corresponding `Value` object is appended to a list of assertions in the encompassing class. The method then returns `True`, to make sure no errors are raised (we don't care about that behavior here).
+The `Value` class additionally defines a `__bool__` method. This method is called whenever an expression is evaluated for its "truthiness", e.g. in the condition of an `if` block or in the argument of `not x`. One specific scenario that calls `Value.__bool__` is an assertion. Whenever `assert x` is executed, `x` is checked for truthiness, and if it is falsey, an `AssertionError` is raised. This module abuses this fact; whenever `__bool__` is called, the corresponding `Value` object is appended to a list of assertions in the encompassing class. The method then returns `True`, to make sure no errors are raised (we don't care about that behavior here).
 
 One catch of using `__bool__` is that it can be called in a variety of contexts. We only want to consider the `assert` context, but unfortunately we have to deal with other ones too. One specific case that might come up is something like `a == b == c`, or operator chaining. In python, this is syntactic sugar for `(a == b) and (b == c)`. Since our `Value` objects return other `Value` objects when compared using `==`, and not booleans, this will call `__bool__` on the result of `a == b`. And we don't want that! It's totally possible that in the context of a constraint, we don't want to assert that a equals b. How do we avoid this?
 
