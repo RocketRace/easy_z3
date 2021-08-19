@@ -43,6 +43,10 @@ print(n, x, b) # such easy
 
 Purely to make linters angry
 
+## Hold on, if `>>`/`<<` are `implies`, how do you do bitshifting?
+
+Excellent question! Um... 
+
 ## How
 
 Metaclasses defining custom namespaces and special syntax, `inspect` to traverse stack frames and mess with globals, and plenty of glue to patch together some reasonable API to z3.
