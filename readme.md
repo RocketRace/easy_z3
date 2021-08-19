@@ -43,7 +43,7 @@ print(n, x, b) # such easy
 
 Purely to make linters angry
 
-## Hold on, if `>>`/`<<` are `implies`, how do you do bitshifting?
+## Hold on, if `>>`/`<<` are `implies`, where's bitshifting?
 
 Excellent question! Um... 
 
