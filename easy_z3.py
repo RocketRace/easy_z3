@@ -1,4 +1,6 @@
 """
+Copyright RocketRace 2020-present
+
 This file is licensed under GPLv3. See the LICENSE file for more information.
 
 See example.py for example usage.
