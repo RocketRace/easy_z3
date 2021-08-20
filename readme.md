@@ -99,7 +99,9 @@ Overall, this project bullies Python a lot. I don’t usually condone bullying, 
 
 ## License
 
-GPLv3, see LICENSE
+Copyright RocketRace 2020-present
+
+Licensed under GPLv3, see LICENSE
 
 ## Contributing
 
