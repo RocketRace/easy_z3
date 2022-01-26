@@ -41,11 +41,11 @@ print(n, x, b) # such easy
 
 ## Why
 
-Purely to make linters angry
+~~Purely to make linters angry~~ To show that this is even possible!
 
 ## Hold on, if `>>`/`<<` are `implies`, where's bitshifting?
 
-Excellent question! Um... 
+Excellent question! Unfortunately, Python's syntax limits us to one or the other. I chose to bind logical meaning to bitwise operators, to unify the interface (`&`, `|` and `^` are logical AND, OR, and XOR respectively).
 
 ## How
 
@@ -105,4 +105,4 @@ Licensed under GPLv3, see LICENSE
 
 ## Contributing
 
-If you feel the need?
+Pull requests are welcome.
