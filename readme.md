@@ -2,7 +2,7 @@
 
 Have you ever thought, "I really need a constraint solver right now" and
 remembered that the python wrapper for z3 (which is already very easy to use)
-is not easy enough to use? No? That's fine, I made this anyway.
+is not easy enough to use? No? That's fine, `easy_z3` exists anyway.
 
 ## Usage
 
